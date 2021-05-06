@@ -23,8 +23,8 @@ const App = () => {
     <SafeAreaView> 
       <StatusBar barStyle='dark-content' />
       {/* <HomeScreen /> */}
-      <DestinationSearch />
-      {/* <SearchResults /> */}
+      {/* <DestinationSearch /> */}
+      <SearchResults />
     </SafeAreaView>
     // </SafeAreaView>
   );
