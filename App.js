@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import DestinationSearch from './src/screens/DesitinationSearch';
 import HomeScreen from './src/screens/HomeScreen';
+import SearchResults from './src/screens/SearchResults';
 
 const App = () => {
 
@@ -23,6 +24,7 @@ const App = () => {
       <StatusBar barStyle='dark-content' />
       {/* <HomeScreen /> */}
       <DestinationSearch />
+      {/* <SearchResults /> */}
     </SafeAreaView>
     // </SafeAreaView>
   );

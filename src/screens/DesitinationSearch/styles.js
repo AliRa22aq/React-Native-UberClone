@@ -3,16 +3,21 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
         padding: 10,
+        // height: "70%",
+        height: "100%",
         
         
     },
     textinputcontainer1: {
-        height: "100%",
+        position: 'absolute'
 
     },
     textinputcontainer2: {
         height: "100%",
-        top: 50
+        position: 'absolute',
+        top: 20
+
+
 
     },
     textinput:{
