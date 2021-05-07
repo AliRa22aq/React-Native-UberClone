@@ -1,31 +1,51 @@
 import React from 'react';
-import HomeScreen from '../screens/HomeScreen';
-import DestinationSearch from '../screens/DesitinationSearch';
-import SearchResults from '../screens/SearchResults';
-
+import {View, Text} from 'react-native';
+import HomeNavigation from './Home';
 import {NavigationContainer} from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { View } from 'react-native';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import CustomDrawer from './CustomDrawer';
 
+const Drawer = createDrawerNavigator();
+
+const DummyScreen = (props) => {
+  return  (
+  <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <Text>{props.name} </Text>
+  </View>
+  )
+};
 
 const Router = () => {
-    
-    const Stack = createStackNavigator();
-
   return (
-      <View style={{height: '100%'}}> 
-    <NavigationContainer> 
-        {/* <DestinationSearch /> */}
-      <Stack.Navigator 
-            screenOptions= {{
-                headerShown: false,
-            }}
-            > 
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="DestinationSearch" component={DestinationSearch} />
-        <Stack.Screen name="SearchResults" component={SearchResults} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={{height: '100%'}}>
+      <NavigationContainer>
+
+        <Drawer.Navigator
+            drawerContent={(props)=> (<CustomDrawer {...props} /> )} 
+                >
+          <Drawer.Screen name="Home" component={HomeNavigation} />
+
+          <Drawer.Screen name="Your Trips">
+              {() => <DummyScreen name="Your Trips" />}
+          </Drawer.Screen>
+
+          <Drawer.Screen name="Help">
+              {() => <DummyScreen name="Help" />}
+
+          </Drawer.Screen>
+
+          <Drawer.Screen name="Setting">
+              {() => <DummyScreen name="Setting" />}
+
+          </Drawer.Screen>
+
+          <Drawer.Screen name="Wallet">
+              {() => <DummyScreen name="Wallet" />}
+
+          </Drawer.Screen>
+
+        </Drawer.Navigator>
+      </NavigationContainer>
     </View>
   );
 };
