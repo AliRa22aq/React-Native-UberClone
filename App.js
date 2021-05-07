@@ -14,8 +14,12 @@ import {
   Platform,
 } from 'react-native';
 import DestinationSearch from './src/screens/DesitinationSearch';
+import HomeScreen from './src/screens/HomeScreen';
 import Geolocation from '@react-native-community/geolocation';
 navigator.geolocation = require('@react-native-community/geolocation');
+import 'react-native-gesture-handler';
+import Router from './src/navigation/Router';
+
 
 
 const App = () => {
@@ -59,9 +63,10 @@ const App = () => {
     <SafeAreaView>
       <StatusBar barStyle="dark-content" />
       {/* <HomeScreen /> */}
-      <DestinationSearch />
+      {/* <DestinationSearch /> */}
       {/* <SearchResults /> */}
       {/* </SafeAreaView> */}
+      <Router />
     </SafeAreaView>
   );
 };
