@@ -5,30 +5,65 @@
  * @format
  * @flow strict-local
  */
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   StatusBar,
-  View
-
+  View,
+  PermissionsAndroid,
+  Platform,
 } from 'react-native';
 import DestinationSearch from './src/screens/DesitinationSearch';
-import HomeScreen from './src/screens/HomeScreen';
-import SearchResults from './src/screens/SearchResults';
+import Geolocation from '@react-native-community/geolocation';
+navigator.geolocation = require('@react-native-community/geolocation');
+
 
 const App = () => {
+  const androidPermmision = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Cool Photo App Camera Permission',
+          message:
+            'Cool Photo App needs access to your camera ' +
+            'so you can take awesome pictures.',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('You can use the camera');
+      } else {
+        console.log('Camera permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      androidPermmision();
+
+    } else {
+      // ios
+      Geolocation.requestAuthorization();
+    }
+  }, []);
 
   return (
     // <SafeAreaView >
-    <SafeAreaView> 
-      <StatusBar barStyle='dark-content' />
+    <SafeAreaView>
+      <StatusBar barStyle="dark-content" />
       {/* <HomeScreen /> */}
-      {/* <DestinationSearch /> */}
-      <SearchResults />
+      <DestinationSearch />
+      {/* <SearchResults /> */}
+      {/* </SafeAreaView> */}
     </SafeAreaView>
-    // </SafeAreaView>
   );
 };
-
 
 export default App;

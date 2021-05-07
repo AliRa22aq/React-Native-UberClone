@@ -12,9 +12,8 @@ const getImage = (type) => {
   if (type === 'Comfort') {
     return require('../../assests/images/top-Comfort.png');
   }
-  if (type === 'UberXL') {
     return require('../../assests/images/top-UberXL.png');
-  }
+
 };
 
 const HomeMap = () => {
@@ -35,7 +34,15 @@ const HomeMap = () => {
               key={car.id}
               coordinate={{latitude: car.latitude, longitude: car.longitude}}>
               <Image
-                style={{width: 40, height: 40}}
+                style={{
+                    width: 70, 
+                    height: 70, 
+                    resizeMode: "contain",
+                    transform: [{
+                        rotate: `${car.heading}deg`
+                    }]
+                
+                }}
                 source={getImage(car.type)}
               />
             </Marker>

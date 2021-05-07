@@ -1,0 +1,3 @@
+Google Auto complete
+User current location
+Pre defined location

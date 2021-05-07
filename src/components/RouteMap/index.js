@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image, FlatList} from 'react-native';
+import {View} from 'react-native';
 import styles from './styles';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
