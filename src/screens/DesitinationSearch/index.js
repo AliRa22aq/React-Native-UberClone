@@ -8,20 +8,20 @@ import PlaceRow from './PlaceRow';
 import {useNavigation} from '@react-navigation/core';
 
 const DestinationSearch = () => {
-  const [orignalPlace, setOrignalPlace] = useState(null);
+  const [originPlace, setOriginPlace] = useState(null);
   const [destinationPlace, setDestinationPlace] = useState(null);
 
 
   const navigation = useNavigation();
 
   useEffect(() => {
-    if (orignalPlace && destinationPlace) {
+    if (originPlace && destinationPlace) {
       navigation.navigate('SearchResults', {
-        orignalPlace,
+        originPlace,
         destinationPlace
       });
     }
-  }, [orignalPlace, destinationPlace]);
+  }, [originPlace, destinationPlace]);
 
   // console.log(fromText, destinationText);
   const homePlace = {
@@ -53,7 +53,7 @@ const DestinationSearch = () => {
         onPress={(data, details = null) => {
           // 'details' is provided when fetchDetails = true
           // console.log(data, details);
-          setOrignalPlace({date: details});
+          setOriginPlace({date: details});
         }}
         query={{
           key: GOOGLE_MAP_KEY,

@@ -13,13 +13,17 @@ import {useRoute} from'@react-navigation/native'
 const SearchResults = () => {
 
   const route = useRoute();
-  console.log(route.params)
+  // console.log(route.params)
+  //orignalPlace  destinationPlace
+
+  const {originPlace, destinationPlace} = route.params
+  // console.log(originPlace.date.geometry.location)
 
   return (
     <View style={{display: 'flex', justifyContent: "space-between"}}>
 
     <View style={{height: Dimensions.get('window').height - 400}}> 
-    <RouteMap />
+    <RouteMap  origin={originPlace} destination={destinationPlace}/>
     </View>
 
     <View style={{height: 400}}> 

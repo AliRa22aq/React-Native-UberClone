@@ -5,17 +5,19 @@ import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import {GOOGLE_MAP_KEY} from '@env';
 
-const RouteMap = () => {
-  const origin = {
-    latitude: 28.450627,
-    longitude: -16.263045,
+const RouteMap = ({origin, destination}) => {
+  // console.log('origin, destination')
+  // console.log(origin, destination)
+
+  const originLoc = {
+    latitude: origin.date.geometry.location.lat,
+    longitude: origin.date.geometry.location.lng,
   };
 
-  const destination = {
-    latitude: 28.470627,
-    longitude: -16.283045,
+  const destinationLoc = {
+    latitude: destination.date.geometry.location.lat,
+    longitude: destination.date.geometry.location.lng,
   };
-  // const GOOGLE_MAPS_APIKEY = GOOGLE_MAP_KEY;
 
   return (
     <View style={styles.container}>
@@ -31,8 +33,8 @@ const RouteMap = () => {
         }}>
 
         <MapViewDirections
-          origin={origin}
-          destination={destination}
+          origin={originLoc}
+          destination={destinationLoc}
           apikey={GOOGLE_MAP_KEY}
           strokeWidth={3}
           strokeColor="hotpink"
