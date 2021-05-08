@@ -40,11 +40,11 @@ const RouteMap = ({origin, destination}) => {
           strokeColor="hotpink"
         />
         <Marker 
-          coordinate={origin}
+          coordinate={originLoc}
           title='Origon'
         />
         <Marker 
-          coordinate={destination}
+          coordinate={destinationLoc}
           title='Destination'
         />
       </MapView>

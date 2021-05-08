@@ -6,11 +6,11 @@ import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import Entypo from 'react-native-vector-icons/dist/Entypo';
 import {useNavigation} from '@react-navigation/native'
 
-
 const HomeSearch = () => {
 
     const navigation = useNavigation()
-    const goToSearch = () => {
+    const goToSearch = async() => {
+
         navigation.navigate('DestinationSearch')
     }
 

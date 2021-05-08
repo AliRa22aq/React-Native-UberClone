@@ -2,6 +2,14 @@ import React from 'react'
 import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
 import {DrawerContentScrollView, DrawerItemList} from '@react-navigation/drawer'
 import Entypo from 'react-native-vector-icons/dist/Entypo';
+import { Auth } from 'aws-amplify';
+
+const logout = async() => {
+
+    console.warn("Log out")
+    await Auth.signOut({ global: true });
+
+}
 
 const CustomDrawer = (props) => {
     return (
@@ -41,8 +49,12 @@ const CustomDrawer = (props) => {
 
             </View>
 
-
             <DrawerItemList {...props} />
+
+                <Pressable onPress={logout} style={styles.logout}>
+                    <Text style={styles.logoutText}>logout</Text>
+                </Pressable>
+                
         </DrawerContentScrollView>
     )
 }
@@ -95,5 +107,19 @@ const styles = StyleSheet.create({
     text: {
         color: 'white',
         paddingVertical: 5
+    },
+    logout: {
+        width: '100%', 
+        height: 50, 
+        backgroundColor: 'black',
+        justifyContent: 'center', 
+        alignItems: 'center',
+
+    },
+    logoutText: {
+        color: 'white',
+        fontSize: 16,
+        // justifyContent: 'center', 
+        // alignItems: 'center'
     }
 })

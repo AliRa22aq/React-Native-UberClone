@@ -9,17 +9,19 @@ import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   StatusBar,
-  View,
   PermissionsAndroid,
   Platform,
 } from 'react-native';
-import DestinationSearch from './src/screens/DesitinationSearch';
-import HomeScreen from './src/screens/HomeScreen';
 import Geolocation from '@react-native-community/geolocation';
 navigator.geolocation = require('@react-native-community/geolocation');
 import 'react-native-gesture-handler';
 import Router from './src/navigation/Router';
 
+import { withAuthenticator } from 'aws-amplify-react-native'
+
+import Amplify from 'aws-amplify'
+import config from './aws-exports'
+Amplify.configure(config)
 
 
 const App = () => {
@@ -62,13 +64,9 @@ const App = () => {
     // <SafeAreaView >
     <SafeAreaView>
       <StatusBar barStyle="dark-content" />
-      {/* <HomeScreen /> */}
-      {/* <DestinationSearch /> */}
-      {/* <SearchResults /> */}
-      {/* </SafeAreaView> */}
       <Router />
     </SafeAreaView>
   );
 };
 
-export default App;
+export default withAuthenticator(App)
