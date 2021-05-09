@@ -4,9 +4,11 @@ import styles from './styles';
 import UberTypeRow from '../UberTypeRow';
 import typesData from '../../assests/data/types';
 
-const UberTypes = () => {
-
-    const [selectedType, setSelectedType] = useState('');
+const UberTypes = ({typeState, onSubmit}) => {
+  
+  const [selectedType, setSelectedType] = typeState;
+  console.log(selectedType)            
+  // console.warn('confirm', selectedType);
 
 
   const confirm = () => {
@@ -17,16 +19,13 @@ const UberTypes = () => {
     <View>
       <FlatList
         data={typesData}
-        renderItem={({item}) => <UberTypeRow data={item} setSelectedType={setSelectedType} />}
+        renderItem={({item}) => 
+                  <UberTypeRow 
+                      data={item} setSelectedType={setSelectedType} isSelected={item.type === selectedType } />}
       />
 
-      <Pressable onPress={confirm} style={styles.button} >
-          {
-              selectedType?
-              <Text style={styles.buttontext}>Confirm {selectedType}</Text>:
-              <Text style={styles.buttontext}>Select Any</Text>
-
-          }
+      <Pressable onPress={onSubmit} style={styles.button} >
+        <Text style={styles.buttontext}>Confirm </Text>
       </Pressable>
     </View>
   );

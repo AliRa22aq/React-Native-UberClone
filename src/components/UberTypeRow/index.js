@@ -3,9 +3,11 @@ import {View, Text, Image, Pressable} from 'react-native';
 import styles from './styles';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 
-const UberTypeRow = ({data, setSelectedType}) => {
+const UberTypeRow = ({data, setSelectedType, isSelected }) => {
   // const [type, price] = props.type
-  // console.log(data)
+  // console.warn(isSelected)
+
+
   const {type, price, duration} = data;
 
   const getImage = () => {
@@ -22,7 +24,10 @@ const UberTypeRow = ({data, setSelectedType}) => {
 
 
   return (
-    <Pressable style={styles.container} onPress={()=> {setSelectedType(type)}} >
+    <Pressable 
+      style={[styles.container, {backgroundColor: isSelected? "#efefef":"white"}]}
+      onPress={() => setSelectedType(type)} >
+
       {/* Image */}
       <Image style={styles.image} source={getImage()} />
 

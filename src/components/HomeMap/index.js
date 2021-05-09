@@ -3,8 +3,6 @@ import {View, Image} from 'react-native';
 import styles from './styles';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import {Marker} from 'react-native-maps';
-// import cars from '../../assests/data/cars';
-
 
 import {API, graphqlOperation} from 'aws-amplify' 
 import {listCars} from '../../graphql/queries'
@@ -17,12 +15,13 @@ const getImage = (type) => {
     return require('../../assests/images/top-Comfort.png');
   }
     return require('../../assests/images/top-UberXL.png');
-
 };
 
 const HomeMap = () => {
 
   const [cars, setCars] = useState([])
+        console.log(cars)
+
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -58,9 +57,9 @@ const HomeMap = () => {
           latitude: 28.450627,
           longitude: -16.263045,
           latitudeDelta: 0.0222,
-          longitudeDelta: 0.0421,
+          longitudeDelta: 0.0221,
         }}>
-        
+
         {cars.map(car => {
           return (
             <Marker
