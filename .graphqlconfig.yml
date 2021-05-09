@@ -1,6 +1,6 @@
 projects:
   uberclone:
-    schemaPath: 'G:/PIAIC/Bootcamp2020/React-Native/UberClone/graphql/schema.json'
+    schemaPath: 'src/graphql/schema.json'
     includes:
       - src/graphql/**/*.js
     excludes:
