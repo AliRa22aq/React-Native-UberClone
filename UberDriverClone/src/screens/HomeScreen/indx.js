@@ -3,6 +3,8 @@ import {View, Text, Dimensions, Pressable} from 'react-native';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import Entypo from 'react-native-vector-icons/Entypo'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import NewOrderPopup from '../../components/NewOrderPopup';
 import styles from './styles';
 
 
@@ -90,18 +92,19 @@ const HomeScreen = () => {
       </Pressable>
 
 
-       
       <View style={styles.bottomContainer}>
-        <Entypo name='menu' size={24} color="#4a4a4a" />
+        <Ionicons name='options' size={30} color="#4a4a4a" />
         {
           isOnline?
           <Text style={styles.bottomText}>You're are Ofline</Text>:
           <Text style={styles.bottomText}>You're are Online</Text>
 
         }
-        <Entypo name='menu' size={24} color="#4a4a4a" />
+        <Entypo name='menu' size={30} color="#4a4a4a" />
       </View>
 
+
+        <NewOrderPopup />
 
     </View>
   );
