@@ -9,23 +9,21 @@
 import React from 'react';
 import {
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
-  useColorScheme,
-  View,
 } from 'react-native';
+import Map from './src/components/Map';
+import HomeScreen from './src/screens/HomeScreen/indx';
 
 
 
 const App = () => {
 
   return (
-    <SafeAreaView >
+    <SafeAreaView style={{flex: 1}}>
       <StatusBar  />
-      < Text> Hello World! </Text>
-    </SafeAreaView>
+      <HomeScreen />
+      </SafeAreaView>
   );
 };
 
