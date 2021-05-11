@@ -23,11 +23,18 @@ import { getCarId } from './src/graphql/queries';
 import { createCar } from './src/graphql/mutations';
 Amplify.configure(config)
 
+import Geolocation from '@react-native-community/geolocation';
+import requestLocationPermission from './src/components/RequestUserLocation';
+
+Geolocation.getCurrentPosition(info => console.log(info));
+
 
 
 const App = () => {
 
+
   useEffect(()=>{
+    requestLocationPermission();
     const updateUserCar = async () => {
       // get authenticated user
       const authenticatedUser = await Auth.currentAuthenticatedUser({bypassCache: true})

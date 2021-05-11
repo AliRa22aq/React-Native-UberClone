@@ -15,10 +15,12 @@ import { listOrders } from '../../graphql/queries';
 const HomeScreen = () => {
 
   const [order, setOrder] = useState(null);
-  console.log('order.user.username')
-  console.log(order?.user?.username)
-  const [myPositoin, serMyPosition] = useState(null);
+  // const [myPositoin, serMyPosition] = useState(null);
   const [car, setCar] = useState(null)
+  console.log('car')
+  console.log(car)
+
+
   const [newOrders, setNewOrders] = useState([]);
 
   const onAccept = (newOrder) => {
@@ -149,10 +151,27 @@ const HomeScreen = () => {
     return <Text style={styles.bottomText}>You're are Online</Text>;
   };
 
-  const onUserLocationChange = e => {
-    // console.log('Event')
-    // console.log(e.nativeEvent)
-    serMyPosition(e.nativeEvent.coordinate);
+  const onUserLocationChange = async (e) => {
+    // console.log('e.nativeEvent.coordinate')
+    const { latitude, longitude, heading } = e.nativeEvent.coordinate
+
+    
+    try {
+      const userData = await Auth.currentAuthenticatedUser();
+      const input = {
+        id: userData.attributes.sub,
+        latitude,
+        longitude,
+        heading,
+      }
+      const updatedCarData = await API.graphql(
+        graphqlOperation(updateCar, { input })
+      )
+      console.log("car Updated from onUserLocationChange")
+      setCar(updatedCarData.data.updateCar);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const onDirectionFound = event => {
@@ -231,7 +250,7 @@ const HomeScreen = () => {
         style={{height: Dimensions.get('window').height - 100, width: '100%'}}
         provider={PROVIDER_GOOGLE}
         showsUserLocation={true}
-        showsMyLocationButton={false}
+        showsMyLocationButton={true}
         onUserLocationChange={onUserLocationChange}
         initialRegion={{
           latitude: 31.427021782304326,
@@ -240,17 +259,17 @@ const HomeScreen = () => {
           longitudeDelta: 0.005,
         }}>
         {order && (
-          <>
             <MapViewDirections
-              origin={myPositoin}
+              origin={{
+                latitude: car?.latitude,
+                longitude: car?.longitude,
+              }}
               onReady={onDirectionFound}
               destination={getDestination()}
               apikey="AIzaSyBBYMf3Xl3LZEFjWQf6LlwUq447oRp7W6E"
               strokeWidth={5}
               strokeColor="hotpink"
             />
-            <Marker coordinate={getDestination()} title="Destination" />
-          </>
         )}
       </MapView>
 
@@ -268,11 +287,11 @@ const HomeScreen = () => {
         <Entypo name="menu" size={24} color="#4a4a4a" />
       </Pressable>
 
-      <Pressable
+      {/* <Pressable
         onPress={() => console.warn('Pressed')}
         style={[styles.roundButton, {top: 10, right: 10}]}>
         <Entypo name="menu" size={24} color="#4a4a4a" />
-      </Pressable>
+      </Pressable> */}
 
       <Pressable
         onPress={() => console.warn('Pressed')}
