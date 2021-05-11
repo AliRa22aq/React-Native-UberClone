@@ -12,10 +12,11 @@ import { getCar } from '../../graphql/queries';
 import { updateCar } from '../../graphql/mutations';
 import { listOrders } from '../../graphql/queries';
 
-
 const HomeScreen = () => {
 
   const [order, setOrder] = useState(null);
+  console.log('order.user.username')
+  console.log(order?.user?.username)
   const [myPositoin, serMyPosition] = useState(null);
   const [car, setCar] = useState(null)
   const [newOrders, setNewOrders] = useState([]);
@@ -76,7 +77,7 @@ const HomeScreen = () => {
               Complete {order?.type}
             </Text>
           </View>
-          <Text style={styles.bottomText}>{order.user.name} </Text>
+          <Text style={styles.bottomText}>{order.user?.username} </Text>
         </View>
       );
     }
@@ -107,7 +108,7 @@ const HomeScreen = () => {
             </View>
             <Text>{order?.distance?.toFixed(1) || 0} mi</Text>
           </View>
-          <Text style={styles.bottomText}>Droping off {order.user.name} </Text>
+          <Text style={styles.bottomText}>Droping off {order.user?.username} </Text>
         </View>
       );
     }
@@ -138,7 +139,7 @@ const HomeScreen = () => {
             </View>
             <Text>{order?.distance?.toFixed(1) || 0} mi</Text>
           </View>
-          <Text style={styles.bottomText}>Pickinig up {order.user.name} </Text>
+          <Text style={styles.bottomText}>Pickinig up {order.user?.username} </Text>
         </View>
       );
     }
