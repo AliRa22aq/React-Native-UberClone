@@ -42,7 +42,8 @@ const SearchResults = () => {
       destLatitude: destinationPlace.date.geometry.location.lat,
       destLongitude: destinationPlace.date.geometry.location.lng,
       userId: userInfo.attributes.sub,
-      carId: "1"
+      carId: "1",
+      status: 'NEW'
     }  
 
     // submit to server

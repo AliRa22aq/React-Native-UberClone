@@ -10,8 +10,7 @@ import styles from './styles';
 import {API, Auth, graphqlOperation} from 'aws-amplify'
 import { getCar } from '../../graphql/queries';
 import { updateCar } from '../../graphql/mutations';
-
-
+import { listOrders } from '../../graphql/queries';
 
 
 const HomeScreen = () => {
@@ -19,29 +18,17 @@ const HomeScreen = () => {
   const [order, setOrder] = useState(null);
   const [myPositoin, serMyPosition] = useState(null);
   const [car, setCar] = useState(null)
+  const [newOrders, setNewOrders] = useState([]);
 
-  const [newOrder, setNewOrder] = useState({
-    id: '1',
-    type: 'UberX',
-    originLatitude: 31.42702,
-    oreiginLongitude: 73.058154,
-    destLatitude: 31.41904192,
-    destLongitude: 73.079066,
-    user: {
-      rating: 5,
-      name: 'Ali',
-    },
-  });
-
-  const onAccept = newOrder => {
+  const onAccept = (newOrder) => {
     console.warn('Order Accepted');
     setOrder(newOrder);
-    setNewOrder(null);
+    setNewOrders(newOrders.slice(1));
   };
 
   const onDecline = () => {
     console.warn('Order Declined');
-    setNewOrder(null);
+    setNewOrders(newOrders.slice(1));
   };
 
   const onGo = async () => {
@@ -70,7 +57,6 @@ const HomeScreen = () => {
     }
   };
 
-  console.log(order);
 
   const OnlineStatus = () => {
     if (order && order.isFinished) {
@@ -214,8 +200,28 @@ const HomeScreen = () => {
     }
   }
 
+
+  const fetchOrders = async () => {
+    try{
+      const ordersData = await API.graphql(
+        graphqlOperation(
+          listOrders
+        )
+      )
+      console.log('ordersData')
+      console.log(ordersData)
+      setNewOrders(ordersData.data.listOrders.items)
+
+    } catch(e){
+      console.log("'Error1: " + e)
+    }
+  }
+
+
   useEffect(()=> {
+    console.log("Fetching Data ")
     fetchCar()
+    fetchOrders()
   }, [])
 
   return (
@@ -295,10 +301,10 @@ const HomeScreen = () => {
         <Entypo name="menu" size={30} color="#4a4a4a" />
       </View>
 
-      {newOrder && (
+      {newOrders?.length > 0  && !order && (
         <NewOrderPopup
-          newOrder={newOrder}
-          onAccept={() => onAccept(newOrder)}
+          newOrder={newOrders[0]}
+          onAccept={() => onAccept(newOrders[0])}
           onDecline={onDecline}
           duration={2}
           distance={0.3}

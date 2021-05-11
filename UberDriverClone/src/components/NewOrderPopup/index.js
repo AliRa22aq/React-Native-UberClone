@@ -21,7 +21,7 @@ const NewOrderPopup = ({onDecline, onAccept, newOrder, duration, distance}) => {
             <FontAwesome name="user" color="white" size={35} />
           </View>
           <Text style={styles.uberType}>
-            <AntDesign name="star" size={18} />{newOrder.user.rating}
+            <AntDesign name="star" size={18} />{newOrder?.user?.rating}
           </Text>
         </View>
 
