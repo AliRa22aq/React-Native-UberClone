@@ -7,11 +7,18 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import NewOrderPopup from '../../components/NewOrderPopup';
 import styles from './styles';
+import {API, Auth, graphqlOperation} from 'aws-amplify'
+import { getCar } from '../../graphql/queries';
+import { updateCar } from '../../graphql/mutations';
+
+
+
 
 const HomeScreen = () => {
-  const [isOnline, setIsOnline] = useState(false);
+
   const [order, setOrder] = useState(null);
   const [myPositoin, serMyPosition] = useState(null);
+  const [car, setCar] = useState(null)
 
   const [newOrder, setNewOrder] = useState({
     id: '1',
@@ -37,8 +44,30 @@ const HomeScreen = () => {
     setNewOrder(null);
   };
 
-  const onGo = () => {
-    setIsOnline(!isOnline);
+  const onGo = async () => {
+    // update the car and set it to active
+
+    try{
+      const userData = await Auth.currentAuthenticatedUser();
+
+      const input = {
+        id: userData.attributes.sub,
+        isActive: !car.isActive,
+      }
+
+      const updatedCar = await API.graphql(
+        graphqlOperation(
+          updateCar, {
+            input: input
+          }
+        )
+      )
+
+      setCar(updatedCar.data.updateCar)
+
+    } catch(e){
+      console.log(e)
+    }
   };
 
   console.log(order);
@@ -128,7 +157,7 @@ const HomeScreen = () => {
       );
     }
 
-    if (isOnline)
+    if (!car?.isActive)
       return <Text style={styles.bottomText}>You're are Offline </Text>;
     return <Text style={styles.bottomText}>You're are Online</Text>;
   };
@@ -165,6 +194,29 @@ const HomeScreen = () => {
       longitude: order.oreiginLongitude,
     };
   };
+
+  const fetchCar = async () => {
+    try{
+      const userData = await Auth.currentAuthenticatedUser();
+      const carData = await API.graphql(
+        graphqlOperation(
+          getCar, {
+            id: userData.attributes.sub
+          }         
+        )
+      )
+      // console.log('carData')
+      // console.log(carData)
+      setCar(carData.data.getCar)
+
+    } catch(e) {
+      console.log(e)
+    }
+  }
+
+  useEffect(()=> {
+    fetchCar()
+  }, [])
 
   return (
     <View>
@@ -228,7 +280,7 @@ const HomeScreen = () => {
       </Pressable>
 
       <Pressable onPress={onGo} style={styles.goButton}>
-        {isOnline ? (
+        {car?.isActive ? (
           <Text style={[styles.goText, {fontSize: 24}]}>Start</Text>
         ) : (
           <Text style={styles.goText}>Go</Text>
