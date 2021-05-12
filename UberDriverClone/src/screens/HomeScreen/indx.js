@@ -9,7 +9,7 @@ import NewOrderPopup from '../../components/NewOrderPopup';
 import styles from './styles';
 import {API, Auth, graphqlOperation} from 'aws-amplify'
 import { getCar } from '../../graphql/queries';
-import { updateCar } from '../../graphql/mutations';
+import { updateCar, updateOrder } from '../../graphql/mutations';
 import { listOrders } from '../../graphql/queries';
 
 const HomeScreen = () => {
@@ -22,8 +22,38 @@ const HomeScreen = () => {
 
   const [newOrders, setNewOrders] = useState([]);
 
-  const onAccept = (newOrder) => {
-    console.warn('Order Accepted');
+  const onAccept = async (newOrder) => {
+
+    console.log('newOrder')
+    console.log(newOrder)
+
+
+    const input = {
+      id: newOrder.id,
+      status: "PICKING_UP_CLIENT",
+      carId: car.id
+    }
+
+    try{
+      const ordeData = await API.graphql(
+        graphqlOperation(
+          updateOrder, {
+            input
+          }
+
+        )
+      )
+      console.log('ordeData.data.updateOrder')
+      console.log(ordeData.data.updateOrder)
+      setOrder(ordeData.data.updateOrder)
+
+    } catch(e) {
+      console.log("Error: ", e)
+
+    }
+
+
+    // console.warn('Order Accepted');
     setOrder(newOrder);
     setNewOrders(newOrders.slice(1));
   };
@@ -224,7 +254,9 @@ const HomeScreen = () => {
     try{
       const ordersData = await API.graphql(
         graphqlOperation(
-          listOrders
+          listOrders, {
+            filter : { status: {eq: "NEW"}}
+          }
         )
       )
       console.log('ordersData')

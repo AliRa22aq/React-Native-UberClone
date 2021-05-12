@@ -54,7 +54,7 @@ const OrderScreen = () => {
 
   // Fetch Car on initial render
   useEffect(() => {
-    if (!order) {
+    if (!order?.carId || order.carId==="1") {
       return;
     }
     const fetchCar = async () => {
@@ -73,7 +73,7 @@ const OrderScreen = () => {
 
   //  Subscribe to order update
   useEffect(() => {
-    if (!order?.carId) {
+    if (!order?.carId || order.carId==="1") {
       return;
     }
 
