@@ -55,16 +55,12 @@ const SearchResults = () => {
           }
         )
       )
-      console.log('response')
-      console.log(response)
-      Alert.alert(
-          "Congratulation", 
-          "Order has been Placed", 
-          [{
-            text: "Home Screen",
-            onPress: () => navigation.navigate('Home') 
+      // console.log('response')
+      // console.log(response)
 
-          }])
+
+      navigation.navigate("OrderPage", {id: response.data.createOrder.id })
+
 
     } catch(e) {
       console.log("Error: ", e)

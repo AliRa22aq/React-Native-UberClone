@@ -15,10 +15,9 @@ import { listOrders } from '../../graphql/queries';
 const HomeScreen = () => {
 
   const [order, setOrder] = useState(null);
-  // const [myPositoin, serMyPosition] = useState(null);
   const [car, setCar] = useState(null)
-  console.log('car')
-  console.log(car)
+  // console.log('car')
+  // console.log(car)
 
 
   const [newOrders, setNewOrders] = useState([]);

@@ -7,13 +7,13 @@ import typesData from '../../assests/data/types';
 const UberTypes = ({typeState, onSubmit}) => {
   
   const [selectedType, setSelectedType] = typeState;
-  console.log(selectedType)            
+  // console.log(selectedType)            
   // console.warn('confirm', selectedType);
 
 
-  const confirm = () => {
-    console.warn('confirm');
-  };
+  // const confirm = () => {
+  //   console.warn('confirm');
+  // };
 
   return (
     <View>

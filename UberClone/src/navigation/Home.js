@@ -4,6 +4,7 @@ import DestinationSearch from '../screens/DesitinationSearch';
 import SearchResults from '../screens/SearchResults';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View } from 'react-native';
+import OrderScreen from '../screens/OrderScreen';
 
 
 const HomeNavigation = () => {
@@ -19,6 +20,7 @@ const HomeNavigation = () => {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="DestinationSearch" component={DestinationSearch} />
         <Stack.Screen name="SearchResults" component={SearchResults} />
+        <Stack.Screen name="OrderPage" component={OrderScreen} />
       </Stack.Navigator>
   );
 };
